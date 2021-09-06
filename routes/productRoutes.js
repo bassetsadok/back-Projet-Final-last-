@@ -94,6 +94,7 @@ router.route('/:id/bids/:targetId').patch(
 // Admin only
 
 router.use(authController.protect, authController.restrictTo('admin'));
+router.route('/super').delete(productController.deleteProduct);
 router
   .route('/super/all-pendings')
   .get(productController.getALlPendingsProducts);
