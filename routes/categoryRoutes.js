@@ -3,8 +3,6 @@ const express = require('express');
 const categoryController = require('../controllers/categoryController');
 const authController = require('../controllers/authController');
 
-//const upload = require('../utils/multer');
-//const uploadProdcutThumbnail = require('../middlewares/imageUploader');
 const attachTheCurrentUser = require('../middlewares/attachTheCurrentUser');
 
 const router = express.Router();

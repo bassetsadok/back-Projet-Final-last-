@@ -27,9 +27,10 @@ router.patch('/update-password', authController.updatePassword);
 router.patch('/update-me', checkForbiddenFields, userController.updateMe);
 router.get('/me', userController.getMe, userController.getUser);
 router.delete('/delete-me', userController.deleteMe);
-// Middleware to restricted to the admin only !
 router.route('/:id').get(userController.getUser);
-router.use(authController.restrictTo('admin'));
+
+// Middleware to restricted to the admin only !
+router.use(authController.protect, authController.restrictTo('admin'));
 router
   .route('/')
   .get(userController.getAllUsers)

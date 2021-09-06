@@ -2,6 +2,7 @@ const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 const handlerFactory = require('./handlerFactory');
+const Product = require('../models/productModel');
 
 //Helpers
 const filterObj = (obj, ...allowedFields) => {
@@ -16,7 +17,6 @@ exports.getAllUsers = handlerFactory.getAll(User);
 exports.getUser = handlerFactory.getOne(User);
 // Do NOT use to update password !
 exports.updateUser = handlerFactory.updateOne(User);
-exports.deleteUser = handlerFactory.deleteOne(User);
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   // 1) Create error if user POSTs password data
@@ -59,6 +59,18 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 exports.deleteMe = catchAsync(async (req, res, next) => {
   // 1) find
   await User.findByIdAndUpdate(req.currentUser.id, { active: false });
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  // Delete his products
+  await Product.deleteMany({ user: req.params.id });
+  // delete the user
+  await User.findByIdAndDelete(req.params.id);
 
   res.status(204).json({
     status: 'success',

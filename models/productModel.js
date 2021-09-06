@@ -122,11 +122,7 @@ productSchema.virtual('leftTimeInDays').get(function () {
   const res = secondsToDhms(diff);
   return res.days;
 });
-// productSchema.virtual('timeUp').get(function () {
-//   const diff = (new Date(this.deadDate).getTime() - Date.now()) / 1000;
-//   const res = secondsToDhms(diff);
-//   return res.timeUp;
-// });
+
 productSchema.virtual('leftTimeInHours').get(function () {
   const diff = (new Date(this.deadDate).getTime() - Date.now()) / 1000;
   const res = secondsToDhms(diff);
@@ -144,12 +140,6 @@ productSchema.virtual('leftTimeInSeconds').get(function () {
   const res = secondsToDhms(diff);
   return res.seconds;
 });
-// // Virtual populating
-// productSchema.virtual('reviews', {
-//   ref: 'Review',
-//   foreignField: 'product',
-//   localField: '_id',
-// });
 
 productSchema.pre(/^find/, function (next) {
   this.populate({
@@ -164,6 +154,10 @@ productSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'buyer',
   });
+  this.populate({
+    path: 'bids',
+    select: '-__v',
+  });
 
   next();
 });
@@ -173,16 +167,6 @@ productSchema.pre('save', function (next) {
   // 'this' point to the doc instance
   this.slug = slugify(this.name, { lower: true }).toLowerCase();
   // this.currentPrice = this.get('initialPrice');
-  next();
-});
-// Query Middleware
-productSchema.pre(/^find/, function (next) {
-  // 'this' point to the current query
-
-  this.populate({
-    path: 'bids',
-    select: '-__v',
-  });
   next();
 });
 
