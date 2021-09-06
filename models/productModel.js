@@ -185,6 +185,7 @@ productSchema.pre(/^find/, function (next) {
   });
   next();
 });
+
 productSchema.index({ name: 1 });
 
 const Product = mongoose.model('Product', productSchema);
