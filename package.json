@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "an api for bidding system",
   "main": "index.js",
-  "author": "amine louni",
+  "author": "basset sadok",
   "license": "MIT",
   "private": false,
   "scripts": {

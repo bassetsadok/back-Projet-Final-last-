@@ -5,10 +5,15 @@ const morgan = require('morgan');
 //const rateLimit = require('express-rate-limit');
 
 const helmet = require('helmet');
+//middleware which sanitizes user-supplied data to prevent MongoDB Operator Injection
 const mongoSanitize = require('express-mongo-sanitize');
+//middleware to sanitize user input coming from POST body, GET queries, and url params. Works with Express, Restify, or any other Connect app.
 const xssClean = require('xss-clean');
+//a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options
 const cors = require('cors');
+
 const cookieParser = require('cookie-parser');
+//It uses a template and an input object to generate HTML or other text formats. 
 const handlebars = require('express-handlebars');
 
 const compression = require('compression');

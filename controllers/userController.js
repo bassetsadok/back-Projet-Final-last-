@@ -68,10 +68,13 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
   // Delete his products
-  await Product.deleteMany({ user: req.params.id });
-  // delete the user
-  await User.findByIdAndDelete(req.params.id);
+  // await Product.deleteMany({ user: req.params.id });
+  await Product.updateMany({user: req.params.id}, { banned: true });
 
+  // delete the user
+  //await User.findByIdAndDelete(req.params.id);
+  await User.findByIdAndUpdate(req.params.id, { banned: true });
+  
   res.status(204).json({
     status: 'success',
     data: null,

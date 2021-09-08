@@ -31,7 +31,10 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-
+    banned: {
+      type: Boolean,
+      default: false,
+    },
     slug: String,
     buyer: { type: mongoose.Schema.ObjectId, ref: 'User' },
     user: {

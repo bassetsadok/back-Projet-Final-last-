@@ -11,7 +11,7 @@ const categoryScheme = new mongoose.Schema(
         'A category name must have less or equal then  40 characters',
       ],
       minlength: [
-        5,
+        3,
         'A category name must have more or equal then  5 characters',
       ],
       // validate: [validator.isAlpha, 'Product name must only conatints characters'],
